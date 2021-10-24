@@ -15,5 +15,11 @@ module.exports = {
       },
       __key: "images",
     },
+    // {
+    //   resolve: `gatsby-theme-advanced`,
+    //   options: {
+    //     basePath: `/blog`,
+    //   },
+    // },
   ],
 };
