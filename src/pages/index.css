@@ -1,0 +1,4 @@
+@import '~antd/dist/antd.css';
+body {
+    box-shadow: inset 0px 2px 12px -10px #000;
+}
