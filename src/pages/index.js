@@ -1,23 +1,47 @@
-import { StaticImage } from 'gatsby-plugin-image';
-import React from 'react'
-import Layout from '../components/layout';
-import { BrowserRouter } from 'react-router-dom';
-import scrollTo from 'gatsby-plugin-smoothscroll';
+import React, {useState} from "react"
+import { Link } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
+
+import Layout from "../components/layout"
+import Seo from "../components/seo"
+import LoadingOverlay from 'react-loading-overlay'
+import CircleLoader from 'react-spinners/CircleLoader'
 import './index.css'
 
+
 const IndexPage = () => {
+  let [loading, setLoading] = useState(true);
+  setTimeout(()=>{
+    setLoading(false);
+  }, 2000)
   return (
-    <BrowserRouter>
-      <Layout pageTitle="Home Page">
-        <p>This is my home page</p>
-        <button onClick={() => scrollTo('#adog')}>Dog</button>
-        <button onClick={() => scrollTo('#sphinx')}>Cat</button>
-        <StaticImage id="adog" alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
-          src="https://pbs.twimg.com/media/E1oMV3QVgAIr1NT?format=jpg&name=large" />
-        <StaticImage id="sphinx" alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
-          src="../images/sphynx.jpg" />
-      </Layout>
-    </BrowserRouter>
-  )
-}
-export default IndexPage;
+  <LoadingOverlay
+  className="custom-overlay"
+  active={loading}
+  spinner={<CircleLoader color={'black'} size={60} />}
+  >
+    <Layout>
+      <Seo title="Home" />
+      <h1>Hi people</h1>
+      <p>Welcome to your new Gatsby site.</p>
+      <p>Now go build something great.</p>
+      <StaticImage
+        src="../images/gatsby-astronaut.png"
+        width={300}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt="A Gatsby astronaut"
+        style={{ marginBottom: `1.45rem` }}
+      />
+      <p>
+        <Link to="/page-2/">Go to page 2</Link> <br />
+        <Link to="/using-typescript/">Go to "Using TypeScript"</Link> <br />
+        <Link to="/using-ssr">Go to "Using SSR"</Link> <br />
+        <Link to="/using-dsg">Go to "Using DSG"</Link>
+      </p>
+    </Layout>
+    </LoadingOverlay>
+    )
+  }
+
+export default IndexPage
