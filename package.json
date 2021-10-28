@@ -23,6 +23,7 @@
     "react-helmet": "^6.1.0",
     "react-loading-overlay": "^1.0.1",
     "react-materialize": "^3.10.0",
+    "react-scrollmagic": "^2.3.0",
     "react-spinners": "^0.11.0"
   },
   "devDependencies": {

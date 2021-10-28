@@ -1,11 +1,10 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import { Navbar, Icon, NavItem } from 'react-materialize'
+import { Navbar, Icon, NavItem, Carousel } from 'react-materialize'
 
 const Header = ({ siteTitle }) => (
   <header>
-    
     <Navbar
       className="brown darken-1"
       alignLinks="left"
@@ -32,6 +31,27 @@ const Header = ({ siteTitle }) => (
         Components
       </NavItem>
     </Navbar>
+    <Carousel
+      carouselId="Carousel-34"
+      images={[
+        'https://picsum.photos/200/300?image=0',
+        'https://picsum.photos/200/300?image=1',
+        'https://picsum.photos/200/300?image=2',
+        'https://picsum.photos/200/300?image=3',
+        'https://picsum.photos/200/300?image=4'
+      ]}
+      options={{
+        dist: -100,
+        duration: 200,
+        fullWidth: false,
+        indicators: false,
+        noWrap: false,
+        numVisible: 5,
+        onCycleTo: null,
+        padding: 0,
+        shift: 0
+      }}
+    />
   </header>
 )
 
