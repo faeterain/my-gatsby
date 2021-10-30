@@ -2,6 +2,7 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { Navbar, Icon, NavItem, Carousel } from 'react-materialize'
+import './header.css'
 
 const Header = ({ siteTitle }) => (
   <header>
@@ -34,11 +35,9 @@ const Header = ({ siteTitle }) => (
     <Carousel
       carouselId="Carousel-34"
       images={[
-        'https://picsum.photos/200/300?image=0',
-        'https://picsum.photos/200/300?image=1',
-        'https://picsum.photos/200/300?image=2',
-        'https://picsum.photos/200/300?image=3',
-        'https://picsum.photos/200/300?image=4'
+        'https://picsum.photos/300/500?image=0',
+        'https://picsum.photos/300/500?image=1',
+        'https://picsum.photos/300/500?image=2',
       ]}
       options={{
         dist: -100,
