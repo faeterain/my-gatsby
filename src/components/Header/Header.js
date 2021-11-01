@@ -1,11 +1,34 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import { Navbar, Icon, NavItem, Carousel } from 'react-materialize'
-import './header.css'
+import { Navbar, NavItem, TextInput } from 'react-materialize'
+import { useStaticQuery, graphql } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
+import { Carousel } from 'react-responsive-carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import * as styles from './Header.module.css'
 import { headerCarousel } from "../../config/headerConfig"
+import MaterialIcon from '@material/react-material-icon'
+import Logo from '../../images/logo.png'
 
 const Header = ({ siteTitle }) => {
+  const data = useStaticQuery(graphql`
+    query MyQuery {
+      allFile(filter: {relativeDirectory: {eq: "header-carousel"}}) {
+        edges {
+          node {
+            id
+            publicURL
+            relativePath
+            relativeDirectory
+          }
+        }
+      }
+    }
+  `)
+  const carouselImage = data.allFile.edges
+    console.log(data);
+
   React.useEffect(() => {
     var listImage = [headerCarousel.path + "/file1.jfif", headerCarousel.path + "/file2.jfif", headerCarousel.path + "/file3.jfif"]
   }, [])
@@ -15,39 +38,18 @@ const Header = ({ siteTitle }) => {
       carouselId="top-carousel"
       className="white-text center"
       options={headerCarousel.options}
+      showThumbs={false}
+      swipeable={true}
+      autoPlay = {true}
+      interval={5000}
+      infiniteLoop = {true}
     >
-      <div className="red">
-        <h2>
-          First Panel
-        </h2>
-        <p>
-          This is your first panel
-        </p>
-      </div>
-      <div className="amber">
-        <h2>
-          Second Panel
-        </h2>
-        <p>
-          This is your second panel
-        </p>
-      </div>
-      <div className="green">
-        <h2>
-          Third Panel
-        </h2>
-        <p>
-          This is your third panel
-        </p>
-      </div>
-      <div className="blue">
-        <h2>
-          Fourth Panel
-        </h2>
-        <p>
-          This is your fourth panel
-        </p>
-      </div>
+      {carouselImage.map(image =>{
+        console.log(image)
+        return (
+          <div className={styles.customBackground} style={{ backgroundImage: `url('${image.node.publicURL}')`}} ></div>
+        )
+      })}
     </Carousel>
     <Navbar
       className="brown darken-1"
@@ -55,7 +57,7 @@ const Header = ({ siteTitle }) => {
       brand={<Link className="brand-logo" to="/">{siteTitle}</Link>}
       centerLogo
       id="mobile-nav"
-      menuIcon={<Icon>menu</Icon>}
+      menuIcon={<MaterialIcon>menu</MaterialIcon>}
       options={{
         draggable: true,
         edge: 'left',
@@ -68,23 +70,23 @@ const Header = ({ siteTitle }) => {
         preventScrolling: true
       }}
     >
-      <NavItem onClick={function noRefCheck(){}}>
+      <Link to='/page-2'>
         Getting started
-      </NavItem>
+      </Link>
       <NavItem href="components.html">
         Components
+      </NavItem>
+      <NavItem>
+      <TextInput
+        icon="email"
+        id="TextInput-49"
+        label="Email"
+      />
       </NavItem>
     </Navbar>
   </header>
 )}
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
-
-
 export default Header
+
+

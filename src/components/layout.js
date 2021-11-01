@@ -1,10 +1,3 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import React, {useEffect} from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
@@ -29,30 +22,33 @@ const Layout = ({ children }) => {
       }
     }
   `)
+  const {title} = data.site.siteMetadata
 
-  useEffect(() => {
-    axios.post('https://testhome.dev.taxhub.vn/einvoice/v1/test_connection', {},
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': 'bcf6b8eb913f41bd89077b75e859f040'
-      }
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  // useEffect(() => {
+  //   axios.post('https://testhome.dev.taxhub.vn/einvoice/v1/test_connection', {},
+  //   {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'api-key': 'bcf6b8eb913f41bd89077b75e859f040'
+  //     }
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
     
-  }, [])
+  // }, [])
+
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header siteTitle={title || `Title`} />
       
       <div>
         <Products></Products>
         <main>{children}</main>
+        <PageFooter>{children}</PageFooter>
       </div>
     </>
   )

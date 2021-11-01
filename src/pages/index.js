@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import LoadingOverlay from 'react-loading-overlay'
 import CircleLoader from 'react-spinners/CircleLoader'
+import '@material/react-material-icon/dist/material-icon.css';
 import './index.css'
 
 
