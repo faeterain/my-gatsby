@@ -3,9 +3,52 @@ import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { Navbar, Icon, NavItem, Carousel } from 'react-materialize'
 import './header.css'
+import { headerCarousel } from "../../config/headerConfig"
 
-const Header = ({ siteTitle }) => (
+const Header = ({ siteTitle }) => {
+  React.useEffect(() => {
+    var listImage = [headerCarousel.path + "/file1.jfif", headerCarousel.path + "/file2.jfif", headerCarousel.path + "/file3.jfif"]
+  }, [])
+  return(
   <header>
+    <Carousel
+      carouselId="top-carousel"
+      className="white-text center"
+      options={headerCarousel.options}
+    >
+      <div className="red">
+        <h2>
+          First Panel
+        </h2>
+        <p>
+          This is your first panel
+        </p>
+      </div>
+      <div className="amber">
+        <h2>
+          Second Panel
+        </h2>
+        <p>
+          This is your second panel
+        </p>
+      </div>
+      <div className="green">
+        <h2>
+          Third Panel
+        </h2>
+        <p>
+          This is your third panel
+        </p>
+      </div>
+      <div className="blue">
+        <h2>
+          Fourth Panel
+        </h2>
+        <p>
+          This is your fourth panel
+        </p>
+      </div>
+    </Carousel>
     <Navbar
       className="brown darken-1"
       alignLinks="left"
@@ -32,27 +75,8 @@ const Header = ({ siteTitle }) => (
         Components
       </NavItem>
     </Navbar>
-    <Carousel
-      carouselId="Carousel-34"
-      images={[
-        'https://picsum.photos/300/500?image=0',
-        'https://picsum.photos/300/500?image=1',
-        'https://picsum.photos/300/500?image=2',
-      ]}
-      options={{
-        dist: -100,
-        duration: 200,
-        fullWidth: false,
-        indicators: false,
-        noWrap: false,
-        numVisible: 5,
-        onCycleTo: null,
-        padding: 0,
-        shift: 0
-      }}
-    />
   </header>
-)
+)}
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
@@ -61,5 +85,6 @@ Header.propTypes = {
 Header.defaultProps = {
   siteTitle: ``,
 }
+
 
 export default Header

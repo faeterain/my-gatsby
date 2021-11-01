@@ -31,9 +31,12 @@ const Layout = ({ children }) => {
   `)
 
   useEffect(() => {
-    axios.post('https://testhome.dev.taxhub.vn/einvoice/v1/test_connection?', {
-      'Content-Type': 'application/json',
-      'api-key': 'bcf6b8eb913f41bd89077b75e859f040'
+    axios.post('https://testhome.dev.taxhub.vn/einvoice/v1/test_connection', {},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': 'bcf6b8eb913f41bd89077b75e859f040'
+      }
     })
     .then(function (response) {
       console.log(response);
@@ -50,8 +53,6 @@ const Layout = ({ children }) => {
       <div>
         <Products></Products>
         <main>{children}</main>
-        <WizardForm></WizardForm>
-        <PageFooter></PageFooter>
       </div>
     </>
   )
