@@ -46,6 +46,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={title || `Title`} />
       
       <div>
+        <WizardForm></WizardForm>
         <Products></Products>
         <main>{children}</main>
         <PageFooter>{children}</PageFooter>

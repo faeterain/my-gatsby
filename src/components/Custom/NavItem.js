@@ -1,10 +1,11 @@
 import React from "react"
 import { NavItem } from 'react-materialize'
 
-export const CustomNavItem = NavItem((props)=>{
+const CustomNavItem = NavItem((...props)=>{
     return (
         <div>
           abc
         </div>
       );
 })
+export default CustomNavItem
