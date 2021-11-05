@@ -1,0 +1,95 @@
+.modern-radio-container {
+    margin: 24px 0;
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .radio-outer-circle {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    border: 2px solid #0d5bc6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    transition: all 0.1s linear;
+  }
+  
+  .radio-inner-circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #0d5bc6;
+    transition: all 0.1s linear;
+  }
+  .unselected {
+    border: 2px solid #666;
+  }
+  .unselected-circle {
+    width: 0;
+    height: 0;
+  }
+.form-icon{
+  transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -o-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  background-color: transparent;
+  background-image: url('/images/icon/icon-selected.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 0% 0%;
+  position: relative;
+  display: block;
+  width: 150px;
+  margin: 0 13% 0.75em;
+  height: 150px;
+  padding-top: 0;
+  border-radius: 50%;
+  border: 1px solid #e4e7f5;
+}
+.form-icon.selected{
+  transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  background-color: #D6372E;
+  background-size: 35% 35%;
+}
+.form-icon:hover img {
+  transform: translate(-50%, -50%) scale(0.9);
+  -moz-transform: translate(-50%, -50%) scale(0.9);
+  -webkit-transform: translate(-50%, -50%) scale(0.9);
+  -o-transform: translate(-50%, -50%) scale(0.9);
+  -ms-transform: translate(-50%, -50%) scale(0.9);
+}
+.form-icon img {
+  transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  -o-transition: all 350ms cubic-bezier(0.77, 0, 0.175, 1);
+  position: absolute;
+  display: block;
+  width: 40%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.form-icon.selected img{
+  opacity: 0;
+}
+.helper-text {
+  color: #aeaeae;
+  padding-right: 8px;
+  font-size: 20px;
+}

@@ -1,97 +1,210 @@
-import React from "react";
-import {CustomElement, CustomLink} from "../SmoothScroll/SmoothScroll"
-import "./WizardForm.css"
-import { Table } from "react-materialize";
+import React, { Fragment, useState, useEffect } from 'react';
+import StepWizard from "react-step-wizard";
 
+import WizardNav from './WizardNav';
+import Plugs from './Plugs';
+import * as styles from './WizardNav.module.css';
+import * as transitions from './transition.module.css';
+/* eslint react/prop-types: 0 */
 
-const WizardForm = ()=>{
-    return(
-        <>
-            <CustomLink activeclass="active"
-                to="firstInsideContainer" 
-                spy={true}
-                smooth={true}
-                hashSpy={true}
-                offset={50}
-                duration={500}
-                isDynamic={true}
-            >
-                Page 1
-            </CustomLink>
-            <div className="element" id="containerElement">
-            <CustomElement name="firstInsideContainer" className="wizard-content">
-                first element inside container
-                <CustomLink activeclass="active"
-                    to="secondInsideContainer" 
-                    spy={true}
-                    smooth={true}
-                    hashSpy={true}
-                    offset={50}
-                    duration={500}
-                    isDynamic={true}
-                >
-                    Page 2
-                </CustomLink>
-            <Table>
-                <thead>
-                    <tr>
-                    <th data-field="id">
-                        Name
-                    </th>
-                    <th data-field="name">
-                        Item Name
-                    </th>
-                    <th data-field="price">
-                        Item Price
-                    </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>
-                        Alvin
-                    </td>
-                    <td>
-                        Eclair
-                    </td>
-                    <td>
-                        $0.87
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        Alan
-                    </td>
-                    <td>
-                        Jellybean
-                    </td>
-                    <td>
-                        $3.76
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        Jonathan
-                    </td>
-                    <td>
-                        Lollipop
-                    </td>
-                    <td>
-                        $7.00
-                    </td>
-                    </tr>
-                </tbody>
-                </Table>
-            </CustomElement>
-            
+/**
+ * A basic demonstration of how to use the step wizard
+ */
+const WizardForm = () => {
+    const [state, updateState] = useState({
+        form: {},
+        transitions: {
+            enterRight: `${transitions.animated} ${transitions.enterRight}`,
+            enterLeft: `${transitions.animated} ${transitions.enterLeft}`,
+            exitRight: `${transitions.animated} ${transitions.exitRight}`,
+            exitLeft: `${transitions.animated} ${transitions.exitLeft}`,
+            intro: `${transitions.animated} ${transitions.intro}`,
+        },
+        demo: true, // uncomment to see more
+    });
 
-            <CustomElement name="secondInsideContainer">
-                second element inside container
-            </CustomElement>
+    const updateForm = (key, value) => {
+        const { form } = state;
+
+        form[key] = value;
+        updateState({
+            ...state,
+            form,
+        });
+    };
+
+    // Do something on step change
+    const onStepChange = (stats) => {
+        // console.log(stats);
+    };
+
+    const setInstance = SW => updateState({
+        ...state,
+        SW,
+    });
+
+    const { SW, demo } = state;
+
+    return (
+        <div className='container'>
+            <h3>React Step Wizard</h3>
+            <div className={'jumbotron'}>
+                <div className='row'>
+                    <div className={`col-12 col-sm-6 offset-sm-3 ${styles['rsw-wrapper']}`}>
+                        <StepWizard
+                            onStepChange={onStepChange}
+                            isHashEnabled
+                            transitions={state.transitions} // comment out for default transitions
+                            nav={<WizardNav />}
+                            instance={setInstance}
+                        >
+                            <First hashKey={'FirstStep'} update={updateForm} />
+                            <Second form={state.form} />
+                            <Progress stepName='progress' />
+                            {null /* will be ignored */}
+                            <Last hashKey={'TheEnd!'} />
+                        </StepWizard>
+                    </div>
+                </div>
             </div>
+            { (demo && SW) && <InstanceDemo SW={SW} /> }
+        </div>
+    );
+};
 
-
-        </>
-    )
-}
 export default WizardForm;
+
+/** Demo of using instance */
+const InstanceDemo = ({ SW }) => (
+    <Fragment>
+        <h4>Control from outside component</h4>
+        <button className={'btn btn-secondary'} onClick={SW.previousStep}>Previous Step</button>
+        &nbsp;
+        <button className={'btn btn-secondary'} onClick={SW.nextStep}>Next Step</button>
+        &nbsp;
+        <button className={'btn btn-secondary'} onClick={() => SW.goToNamedStep('progress')}>Go to 'progress'</button>
+    </Fragment>
+);
+
+/**
+ * Stats Component - to illustrate the possible functions
+ * Could be used for nav buttons or overview
+ */
+const Stats = ({
+    currentStep,
+    firstStep,
+    goToStep,
+    lastStep,
+    nextStep,
+    previousStep,
+    totalSteps,
+    step,
+}) => (
+    <div>
+        <hr />
+        { step > 1 &&
+            <button className='btn btn-default btn-block' onClick={previousStep}>Go Back</button>
+        }
+        { step < totalSteps ?
+            <button className='btn btn-primary btn-block' onClick={nextStep}>Continue</button>
+            :
+            <button className='btn btn-success btn-block' onClick={nextStep}>Finish</button>
+        }
+        <hr />
+        <div style={{ fontSize: '21px', fontWeight: '200' }}>
+            <h4>Other Functions</h4>
+            <div>Current Step: {currentStep}</div>
+            <div>Total Steps: {totalSteps}</div>
+            <button className='btn btn-block btn-default' onClick={firstStep}>First Step</button>
+            <button className='btn btn-block btn-default' onClick={lastStep}>Last Step</button>
+            <button className='btn btn-block btn-default' onClick={() => goToStep(2)}>Go to Step 2</button>
+        </div>
+    </div>
+);
+
+/** Steps */
+
+const First = props => {
+    const update = (e) => {
+        props.update(e.target.name, e.target.value);
+    };
+
+    return (
+        <div>
+            <h3 className='text-center'>Welcome! Have a look around!</h3>
+
+            <label>First Name</label>
+            <input type='text' className='form-control' name='firstname' placeholder='First Name'
+                onChange={update} />
+            <Stats step={1} {...props} />
+        </div>
+    );
+};
+
+const Second = props => {
+    const validate = () => {
+        if (confirm('Are you sure you want to go back?')) { // eslint-disable-line
+            props.previousStep();
+        }
+    };
+
+    return (
+        <div>
+            { props.form.firstname && <h3>Hey {props.form.firstname}! 👋</h3> }
+            I've added validation to the previous button.
+            <Stats step={2} {...props} previousStep={validate} />
+        </div>
+    );
+};
+
+const Progress = (props) => {
+    const [state, updateState] = useState({
+        isActiveClass: '',
+        timeout: null,
+    });
+
+    useEffect(() => {
+        const { timeout } = state;
+
+        if (props.isActive && !timeout) {
+            updateState({
+                isActiveClass: styles.loaded,
+                timeout: setTimeout(() => {
+                    props.nextStep();
+                }, 3000),
+            });
+        } else if (!props.isActive && timeout) {
+            clearTimeout(timeout);
+            updateState({
+                isActiveClass: '',
+                timeout: null,
+            });
+        }
+    });
+
+    return (
+        <div className={styles['progress-wrapper']}>
+            <p className='text-center'>Automated Progress...</p>
+            <div className={`${styles.progress} ${state.isActiveClass}`}>
+                <div className={`${styles['progress-bar']} progress-bar-striped`} />
+            </div>
+        </div>
+    );
+};
+
+const Last = (props) => {
+    const submit = () => {
+        alert('You did it! Yay!') // eslint-disable-line
+    };
+
+    return (
+        <div>
+            <div className={'text-center'}>
+                <h3>This is the last step in this example!</h3>
+                <hr />
+                <Plugs />
+            </div>
+            <Stats step={4} {...props} nextStep={submit} />
+        </div>
+    );
+};

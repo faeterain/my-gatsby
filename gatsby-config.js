@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Tiệm gần nhà`,
+    title: `Near`,
     description: `Đây là website của tiệm gần nhà`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,

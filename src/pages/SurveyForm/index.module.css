@@ -1,0 +1,31 @@
+.survey-layout {
+  background-color: rgb(40 39 39);
+  color: #aeaeae;
+}
+.survey-content{
+    display: table-cell;
+    width: 100vw;
+    position: relative;
+    vertical-align: middle;
+    font-size: 3vw;
+}
+.survey-content>div {
+    position: relative;
+    overflow: hidden;
+}
+.formNums {
+  width: 61.8vw;
+  height: 100vh;
+  position: absolute !important;
+  right: 5vw;
+  top: 0;
+  font-family: fantasy;
+  color: rgb(40 39 39);
+  font-size: 50vw;
+  text-align: right;
+  line-height: 57vw;
+  color: rgba(255, 255, 255, 0.02);
+}
+.overflow-hidden {
+    overflow: hidden;
+}
